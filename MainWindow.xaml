@@ -1,0 +1,69 @@
+﻿<Window x:Class="MediaProgram.GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MediaProgram.GUI"
+        mc:Ignorable="d"
+           Title="Media Manager" Height="600" Width="1150">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+
+        <!-- Top Area: Buttons -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+            <Button Content="Select Photos/Videos" Width="160" Margin="0,0,10,0" Click="OnSelectMediaClick" />
+            <Button Content="Remove Photo/Video/Album" Width="160" Margin="0,0,10,0" Click="OnRemoveMediaClick"/>
+            <Button Content="Create Album" Width="120" Margin="0,0,10,0" Click="OnCreateAlbumClick"/>
+            <Button Content="Define Extensions" Width="150" Margin="0,0,15,0" />
+            <TextBlock Margin="0,0,5,0">Enter description:</TextBlock>
+            <TextBox x:Name="descriptionTextBox" Width="250" Margin="0,0,10,0" />
+            <Button Content="Add Description" Width="120" Click="OnAddDescriptionClick"/>
+        </StackPanel>
+
+
+        <Grid Grid.Row="1" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="7*" />
+            </Grid.ColumnDefinitions>
+            <TreeView Name="tvMedia" MouseRightButtonUp="tvMedia_MouseRightButtonUp">
+                <TreeView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add Media to Album" Click="OnAddMediaToAlbumClick" Name="addMediaMenuItem"/>
+                    </ContextMenu>
+                </TreeView.ContextMenu>
+            </TreeView>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="94.08" />
+                    <RowDefinition Height="205.92"/>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" Height="300" Grid.RowSpan="2">
+                    <WrapPanel x:Name="imagePreviewWrapPanel" Orientation="Horizontal" Margin="5" />
+                </ScrollViewer>
+
+                <DataGrid Grid.Row="2" Name="dgMediaDetails" AutoGenerateColumns="False" CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="File Name" Binding="{Binding Name}" Width="250" />
+                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="250" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
+            <Label Content="Photo Duration (secs):" Margin="0,0,5,0"/>
+            <TextBox Name="txtSlideshowDuration" Width="50" Margin="0,0,10,0"/>
+            <Button Content="Play Slideshow" Width="150" Click="OnPlaySlideshowClick"/>
+        </StackPanel>
+    </Grid>
+</Window>
